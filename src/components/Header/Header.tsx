@@ -1,6 +1,4 @@
-import React from "react";
-
-export function Header() {
+const Header = () => {
   return (
     <header style={{ background: 'red' }}>
       <img
@@ -11,3 +9,5 @@ export function Header() {
     </header>
   );
 }
+
+export default Header

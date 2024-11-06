@@ -1,4 +1,6 @@
-export default function useStateWithStorage(
+const useStateWithStorage = (
   key: string,
   defaultValue: unknown
-) {}
+) => {}
+
+export { useStateWithStorage }

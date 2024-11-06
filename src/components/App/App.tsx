@@ -1,19 +1,21 @@
-import React, { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useQuery } from '@apollo/client'
+import { GET_PRODUCT_LIST } from '@graphql/queries'
+import Header from '@components/Header/Header'
+import ProductList from '@components/ProductList/ProductList'
+import { ProductListResposne } from 'src/interfaces'
 import './App.css'
-import { Header } from './components/Header'
-import { ProductList } from './components/ProductList'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const { data } = useQuery<ProductListResposne>(GET_PRODUCT_LIST)
 
   return (
     <>
       <Header></Header>
-      <section>
-        <ProductList></ProductList>
-      </section>
+      {
+        (data && data.products && data.products.items)
+          ? <ProductList list={data.products.items} />
+          : null
+      }
     </>
   )
 }
