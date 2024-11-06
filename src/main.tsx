@@ -1,8 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ApolloClient, ApolloLink, createHttpLink, InMemoryCache } from '@apollo/client';
+import App from '@components/App/App';
 import './index.css'
-import App from './App'
 
 const API_URL = 'https://demo.vendure.io/shop-api/shop-api'
 

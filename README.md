@@ -25,7 +25,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Even thought the app is already connected to a graphql endpoint, the trainee can find here all required information about `queries`, `mutations` and Graphql types.
 
-- https://www.vendure.io/docs/graphql-api/shop/
+- https://docs.vendure.io/reference/graphql-api/shop/
 
 ## Scripts
 
