@@ -1,20 +1,44 @@
+import { useMemo } from 'react'
 import { useQuery } from '@apollo/client'
 import { GET_PRODUCT_LIST } from '@graphql/queries'
+import { ProductListResposne } from '@interfaces/graphql'
+import { CircularProgress } from '@mui/material'
 import Header from '@components/Header/Header'
 import ProductList from '@components/ProductList/ProductList'
-import { ProductListResposne } from 'src/interfaces'
 import './App.css'
 
 const App = () => {
-  const { data } = useQuery<ProductListResposne>(GET_PRODUCT_LIST)
+  const { data: productList, loading: isLoadingProductList } = useQuery<ProductListResposne>(GET_PRODUCT_LIST)
+
+  const gridHeaders = ['Image', 'Name', 'Description', 'Price']
+  const parsedList = useMemo(() => {
+    return productList?.products.items.map(
+      _item => ({
+        image: _item.featuredAsset?.source ?? '-',
+        name: _item.name,
+        description: '-',
+        price: 0
+      })
+    )
+  }, [productList])
+  
+  const headerConfig = {
+    logoSrc: 'https://santex.wpengine.com/wp-content/uploads/2019/02/logo-santex@3x.png',
+    subTotalAmount: 0
+  }
 
   return (
     <>
-      <Header></Header>
+      <Header {...headerConfig} />
+      { isLoadingProductList ? <CircularProgress /> : null }
       {
-        (data && data.products && data.products.items)
-          ? <ProductList list={data.products.items} />
-          : null
+        parsedList
+          ? (
+            <ProductList
+              headerList={gridHeaders}
+              list={parsedList}
+            />
+          ) : null
       }
     </>
   )

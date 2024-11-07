@@ -10,6 +10,7 @@ export default defineConfig({
       '@components': '/src/components',
       '@graphql': '/src/graphql',
       '@hooks': '/src/hooks',
+      '@interfaces': '/src/interfaces'
     }
   }
 })
