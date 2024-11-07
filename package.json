@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "ts": "tsc -b",
-    "build": "npm run ts && vite build",
+    "compile": "tsc -b",
+    "build": "npm run compile && vite build",
     "prettier": "prettier ./src --check",
     "prettier:fix": "prettier ./src --write",
     "lint": "eslint ./src",

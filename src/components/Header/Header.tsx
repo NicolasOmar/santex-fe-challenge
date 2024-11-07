@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import './Header.css'
 
 interface HeaderProps {
@@ -11,13 +11,11 @@ const Header: React.FC<HeaderProps> = ({ logoSrc, subTotalAmount }) => {
     <header className='header'>
       <img
         src={logoSrc}
-        alt="logo"
+        alt='logo'
       />
-      <section>
-        {`$${subTotalAmount}`}
-      </section>
+      <section>{`$${subTotalAmount}`}</section>
     </header>
-  );
+  )
 }
 
 export default Header

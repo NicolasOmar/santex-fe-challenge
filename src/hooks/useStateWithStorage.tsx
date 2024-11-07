@@ -1,6 +1,3 @@
-const useStateWithStorage = (
-  key: string,
-  defaultValue: unknown
-) => {}
+const useStateWithStorage = () => {}
 
 export { useStateWithStorage }

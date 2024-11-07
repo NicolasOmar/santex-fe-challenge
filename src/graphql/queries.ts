@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client'
 
 const GET_PRODUCT_LIST = gql`
   query {
@@ -23,8 +23,6 @@ const GET_PRODUCT_LIST = gql`
       }
     }
   }
-`;
+`
 
-export {
-  GET_PRODUCT_LIST
-};
+export { GET_PRODUCT_LIST }
