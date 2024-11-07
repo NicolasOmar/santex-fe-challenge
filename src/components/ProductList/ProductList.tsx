@@ -10,22 +10,22 @@ import {
 } from '@mui/material'
 
 interface ProductListProps {
-  headerList: string[]
-  list: {
-    [key: string]: string | number
+  listHeaders: string[]
+  listData: {
+    [key: string]: string | number | JSX.Element
   }[]
 }
 
-const ProductList: React.FC<ProductListProps> = ({ headerList, list }) => {
+const ProductList: React.FC<ProductListProps> = ({ listHeaders, listData }) => {
   const parsedHeaders = useMemo(
     () =>
-      headerList.map((_header, _headerId) => (
+      listHeaders.map((_header, _headerId) => (
         <TableCell key={_headerId}>{_header}</TableCell>
       )),
-    [headerList]
+    [listHeaders]
   )
   const parsedBody = useMemo(() => {
-    return list.map((_listItem, _itemId) => (
+    return listData.map((_listItem, _itemId) => (
       <TableRow
         key={_itemId}
         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -33,14 +33,14 @@ const ProductList: React.FC<ProductListProps> = ({ headerList, list }) => {
         {Object.values(_listItem).map((_value, _valueId) => (
           <TableCell
             key={`${_itemId}-${_valueId}`}
-            align='right'
+            align='left'
           >
             {_value}
           </TableCell>
         ))}
       </TableRow>
     ))
-  }, [list])
+  }, [listData])
 
   return (
     <TableContainer component={Paper}>

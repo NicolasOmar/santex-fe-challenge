@@ -10,8 +10,8 @@ describe('ProductList', () => {
         addTypename={false}
       >
         <ProductList
-          headerList={[]}
-          list={[]}
+          listHeaders={[]}
+          listData={[]}
         />
       </MockedProvider>
     )
