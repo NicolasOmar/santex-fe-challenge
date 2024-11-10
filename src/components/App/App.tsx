@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 // API
 import { useMutation, useQuery } from '@apollo/client'
 import { GET_PRODUCT_LIST } from '@graphql/queries'
+import { ADD_ITEM_TO_ORDER } from '@graphql/mutations'
 // COMPONENTS
 import { Backdrop, CircularProgress } from '@mui/material'
 import Header from '@components/Header/Header'
@@ -9,15 +10,14 @@ import ProductList from '@components/ProductList/ProductList'
 import BasicButton from '@components/BasicButton/BasicButton'
 import ProductPhoto from '@components/ProductPhoto/ProductPhoto'
 // INTERFACES
-import { ProductItemVariant, ProductListResposne } from '@interfaces/graphql'
+import { ProductItemVariant, ProductListResponse } from '@interfaces/graphql'
 // UTILS
 import { currencyFormatter } from '@utils/formatters'
 import { useStateWithStorage } from '@hooks/useStateWithStorage'
-import { ADD_ITEM_TO_ORDER } from '@graphql/mutations'
 
 const App = () => {
   const { data: productList, loading: isLoadingProductList } =
-    useQuery<ProductListResposne>(GET_PRODUCT_LIST)
+    useQuery<ProductListResponse>(GET_PRODUCT_LIST)
   const [addItemToOrder, { loading: isUpdatingOrder }] =
     useMutation(ADD_ITEM_TO_ORDER)
   const { subTotal, addSubTotal } = useStateWithStorage()

@@ -12,12 +12,10 @@ const GET_PRODUCT_LIST = gql`
         }
         variants {
           id
-          sku
           name
           featuredAsset {
             source
           }
-          price
           priceWithTax
         }
       }

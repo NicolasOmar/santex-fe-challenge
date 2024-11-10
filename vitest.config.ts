@@ -9,7 +9,11 @@ export default defineConfig({
     include: ['src/**/*.test.{tsx,ts}'],
     coverage: {
       include: ['src/**/*.{tsx,ts}'],
-      exclude: ['src/graphql/**/*', 'src/interfaces/**/*'],
+      exclude: [
+        'src/graphql/**/*',
+        'src/interfaces/**/*',
+        'src/**/*.test.{tsx,ts}'
+      ],
       reporter: ['html', 'lcov']
     }
   },

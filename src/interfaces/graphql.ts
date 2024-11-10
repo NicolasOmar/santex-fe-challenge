@@ -17,7 +17,7 @@ export interface ProductItem extends ProductBase {
   variants: ProductItemVariant[]
 }
 
-export interface ProductListResposne {
+export interface ProductListResponse {
   products: {
     items: ProductItem[]
   }
