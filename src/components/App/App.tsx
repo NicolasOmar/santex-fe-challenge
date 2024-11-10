@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 // API
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { GET_PRODUCT_LIST } from '@graphql/queries'
 // COMPONENTS
 import { Backdrop, CircularProgress } from '@mui/material'
@@ -13,13 +13,19 @@ import { ProductItemVariant, ProductListResposne } from '@interfaces/graphql'
 // UTILS
 import { currencyFormatter } from '@utils/formatters'
 import { useStateWithStorage } from '@hooks/useStateWithStorage'
+import { ADD_ITEM_TO_ORDER } from '@graphql/mutations'
 
 const App = () => {
   const { data: productList, loading: isLoadingProductList } =
     useQuery<ProductListResposne>(GET_PRODUCT_LIST)
+  const [addItemToOrder, { loading: isUpdatingOrder }] =
+    useMutation(ADD_ITEM_TO_ORDER)
   const { subTotal, addSubTotal } = useStateWithStorage()
 
-  const handleBuyButtonClick = (productToBuy: ProductItemVariant) => {
+  const handleBuyButtonClick = async (productToBuy: ProductItemVariant) => {
+    await addItemToOrder({
+      variables: { productVariantId: productToBuy.id, quantity: 1 }
+    })
     addSubTotal(productToBuy.priceWithTax)
   }
 
@@ -84,7 +90,7 @@ const App = () => {
         />
       ) : null}
       {
-        <Backdrop open={isLoadingProductList}>
+        <Backdrop open={isLoadingProductList || isUpdatingOrder}>
           <CircularProgress
             color={'success'}
             size={'8rem'}
