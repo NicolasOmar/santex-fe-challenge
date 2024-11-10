@@ -1,3 +1,5 @@
+import { BaseComponentProps } from '@interfaces/components'
+
 interface BasicButtonProps extends BaseComponentProps {
   text: string
   onClick?: () => void
@@ -9,9 +11,12 @@ const BasicButton: React.FC<BasicButtonProps> = ({
   onClick
 }) => {
   const baseClass = cssClasses ?? 'basic-button'
-  
+
   return (
-    <button onClick={onClick} className={baseClass}>
+    <button
+      onClick={onClick}
+      className={baseClass}
+    >
       {text}
     </button>
   )

@@ -28,35 +28,35 @@ const App = () => {
   const productGridData = useMemo(() => {
     const productItems = productList?.products.items ?? null
     if (productItems != null) {
-      return productItems.map(_productItem => {
-        const variantsAreLoaded = Array.isArray(_productItem.variants) && _productItem.variants.length > 0
-        
-        return variantsAreLoaded ? (
-          _productItem.variants.map(_variant => ({
-            image: _variant.featuredAsset?.source ? (
-              <Avatar
-                src={_variant.featuredAsset.source}
-                sx={{ width: '100', height: '100' }}
-              />
-            ) : (
-              <Avatar
-                variant='square'
-              >
-                  -
-              </Avatar>
-            ),
-            name: _variant.name,
-            description: _productItem.description,
-            price: _variant.priceWithTax,
-            action: (
-              <BasicButton
-                text='Buy'
-                onClick={() => handleBuyButtonClick(_variant)}
-              />
-            )
-          }))
-        ) : []
-      }).flat()
+      return productItems
+        .map(_productItem => {
+          const variantsAreLoaded =
+            Array.isArray(_productItem.variants) &&
+            _productItem.variants.length > 0
+
+          return variantsAreLoaded
+            ? _productItem.variants.map(_variant => ({
+                image: _variant.featuredAsset?.source ? (
+                  <Avatar
+                    src={_variant.featuredAsset.source}
+                    sx={{ width: '100', height: '100' }}
+                  />
+                ) : (
+                  <Avatar variant='square'>-</Avatar>
+                ),
+                name: _variant.name,
+                description: _productItem.description,
+                price: _variant.priceWithTax,
+                action: (
+                  <BasicButton
+                    text='Buy'
+                    onClick={() => handleBuyButtonClick(_variant)}
+                  />
+                )
+              }))
+            : []
+        })
+        .flat()
     }
   }, [productList])
 
@@ -74,14 +74,12 @@ const App = () => {
             color={'success'}
           />
         </section>
-      ) : (
-        productGridData ? (
-          <ProductList
-            listHeaders={productGridHeaders}
-            listData={productGridData}
-          />
-        ) : null
-      )}
+      ) : productGridData ? (
+        <ProductList
+          listHeaders={productGridHeaders}
+          listData={productGridData}
+        />
+      ) : null}
     </>
   )
 }
