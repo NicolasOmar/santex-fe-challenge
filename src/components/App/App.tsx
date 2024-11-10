@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { GET_PRODUCT_LIST } from '@graphql/queries'
-import { ProductItem, ProductListResposne } from '@interfaces/graphql'
-import { CircularProgress } from '@mui/material'
+import { Avatar, CircularProgress } from '@mui/material'
 import Header from '@components/Header/Header'
 import ProductList from '@components/ProductList/ProductList'
+import BasicButton from '@components/BasicButton/BasicButton'
+import { ProductItemVariant, ProductListResposne } from '@interfaces/graphql'
 import './App.css'
 
 const App = () => {
@@ -25,30 +26,62 @@ const App = () => {
     'Actions'
   ]
   const productGridData = useMemo(() => {
-    return productList?.products.items.map(_item => ({
-      image: _item.featuredAsset?.source ?? '-',
-      name: _item.name,
-      description: _item.description,
-      price: 0,
-      action: <button onClick={() => handleBuyButtonClick(_item)}>Buy</button>
-    }))
+    const productItems = productList?.products.items ?? null
+    if (productItems != null) {
+      return productItems.map(_productItem => {
+        const variantsAreLoaded = Array.isArray(_productItem.variants) && _productItem.variants.length > 0
+        
+        return variantsAreLoaded ? (
+          _productItem.variants.map(_variant => ({
+            image: _variant.featuredAsset?.source ? (
+              <Avatar
+                src={_variant.featuredAsset.source}
+                sx={{ width: '100', height: '100' }}
+              />
+            ) : (
+              <Avatar
+                variant='square'
+              >
+                  -
+              </Avatar>
+            ),
+            name: _variant.name,
+            description: _productItem.description,
+            price: _variant.priceWithTax,
+            action: (
+              <BasicButton
+                text='Buy'
+                onClick={() => handleBuyButtonClick(_variant)}
+              />
+            )
+          }))
+        ) : []
+      }).flat()
+    }
   }, [productList])
 
-  const handleBuyButtonClick = (productToBuy: ProductItem) => {
-    console.warn(productToBuy)
-    setSubTotal(_oldValue => ++_oldValue)
+  const handleBuyButtonClick = (productToBuy: ProductItemVariant) => {
+    setSubTotal(_oldValue => _oldValue + productToBuy.priceWithTax)
   }
 
   return (
     <>
       <Header {...headerConfig} />
-      {isLoadingProductList ? <CircularProgress /> : null}
-      {productGridData ? (
-        <ProductList
-          listHeaders={productGridHeaders}
-          listData={productGridData}
-        />
-      ) : null}
+      {isLoadingProductList ? (
+        <section className='app-loading'>
+          <CircularProgress
+            size={'8rem'}
+            color={'success'}
+          />
+        </section>
+      ) : (
+        productGridData ? (
+          <ProductList
+            listHeaders={productGridHeaders}
+            listData={productGridData}
+          />
+        ) : null
+      )}
     </>
   )
 }

@@ -43,17 +43,19 @@ const ProductList: React.FC<ProductListProps> = ({ listHeaders, listData }) => {
   }, [listData])
 
   return (
-    <TableContainer component={Paper}>
-      <Table
-        sx={{ minWidth: 650 }}
-        aria-label='Product list table'
-      >
-        <TableHead>
-          <TableRow>{parsedHeaders}</TableRow>
-        </TableHead>
-        <TableBody>{parsedBody}</TableBody>
-      </Table>
-    </TableContainer>
+    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      <TableContainer sx={{ maxHeight: '90vh' }}>
+        <Table
+          stickyHeader
+          aria-label='Product list table'
+        >
+          <TableHead>
+            <TableRow>{parsedHeaders}</TableRow>
+          </TableHead>
+          <TableBody>{parsedBody}</TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
   )
 }
 
