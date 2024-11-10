@@ -1,20 +1,27 @@
-import React from 'react'
-import './Header.css'
+import { styled } from '@mui/material'
+import { currencyFormatter } from '@utils/formatters'
 
 interface HeaderProps {
   logoSrc: string
   subTotalAmount: number
 }
 
+const StyledHeader = styled('header')({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  margin: '15px 0'
+})
+
 const Header: React.FC<HeaderProps> = ({ logoSrc, subTotalAmount }) => {
   return (
-    <header className='header'>
+    <StyledHeader>
       <img
         src={logoSrc}
         alt='logo'
       />
-      <section>{`$${subTotalAmount}`}</section>
-    </header>
+      <section>{currencyFormatter.format(subTotalAmount)}</section>
+    </StyledHeader>
   )
 }
 

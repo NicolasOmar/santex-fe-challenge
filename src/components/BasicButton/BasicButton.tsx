@@ -1,25 +1,20 @@
 import { BaseComponentProps } from '@interfaces/components'
+import { styled } from '@mui/material'
 
 interface BasicButtonProps extends BaseComponentProps {
   text: string
   onClick?: () => void
 }
 
-const BasicButton: React.FC<BasicButtonProps> = ({
-  text,
-  cssClasses,
-  onClick
-}) => {
-  const baseClass = cssClasses ?? 'basic-button'
+const StyledButton = styled('button')({
+  padding: '10px',
+  backgroundColor: 'red',
+  border: 'none',
+  borderRadius: '5px'
+})
 
-  return (
-    <button
-      onClick={onClick}
-      className={baseClass}
-    >
-      {text}
-    </button>
-  )
+const BasicButton: React.FC<BasicButtonProps> = ({ text, onClick }) => {
+  return <StyledButton onClick={onClick}>{text}</StyledButton>
 }
 
 export default BasicButton
