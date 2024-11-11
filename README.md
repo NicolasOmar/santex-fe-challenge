@@ -2,7 +2,9 @@
 
 Quick challenge to help candidates to join RBI Team to catch up with currently used technologies
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Vite](https://vite.dev/).
+
+__Disclaimer:__ Before continue reading, I added a [document that mentions what changes I added to original project's structure](/CUSTOM_CHANGES.md) in order to make it work using current tools such as vite instead Create React App, [here is the original README file](/ORIGINAL_README.md) for anyone who wants to compare its changes,
 
 ## Goals
 
@@ -29,14 +31,14 @@ Even thought the app is already connected to a graphql endpoint, the trainee can
 
 ## Scripts
 
-### `yarn start`
+### `npm start`
 
 Runs the app in the development mode.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `yarn test`
+### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in the one-run mode.\
+See the section about [running tests](https://vitest.dev/) for more information.
